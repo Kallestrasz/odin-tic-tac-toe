@@ -1,30 +1,53 @@
 const gameBoard = (() => {
-    let fieldsArr = Array.from(document.querySelectorAll(".field"));
-    let boardArr = [" "," "," ",
-                    " "," "," ",
-                    " "," "," "]
+    let board = [" "," "," ",
+                 " "," "," ",
+                 " "," "," "]
+    let boardDOM = Array.from(document.querySelectorAll(".field"));
+                
     function display(){
-        for (let i = 0; i < boardArr.length; i++) {
-            fieldsArr[i].innerText = boardArr[i]; 
+        for (let i = 0; i < board.length; i++) {
+            boardDOM[i].innerText = board[i]; 
         }
-    }
-    function clicking(){
-        for (let i = 0; i < fieldsArr.length; i++) {
-            fieldsArr[i].addEventListener("click", (event) => {
-                if (boardArr[i] === "X") {
-                    boardArr[i] = "O";
-                }
-                else{
-                    boardArr[i] = "X";
-                }
+    } 
+
+    function playRound(playerX, playerO, round){
+        for (let i = 0; i < boardDOM.length; i++) {
+            boardDOM[i].addEventListener("click", (event) => {
+                    if (board[i] = " ") { 
+                        if(playerX.turn){
+                            board[i] = playerX.sign;
+                            playerX.turn = false;
+                            playerO.turn = true;
+                        }
+                        else {
+                            board[i] = playerO.sign;
+                            playerO.turn = false;
+                            playerX.turn = true;
+                        }
+                    }
                 display();
             });
         }
     }
-    return{clicking, display}
+
+    return{getWinner, board, playRound}
+    
 })();
 
+const player = (sign, name, bot, turn) => {
+    return{sign, name, bot, turn}
+}
 
+const game = (() => {
 
-gameBoard.display();
-gameBoard.clicking();
+    const playerX = player("X","amongus", false, true);
+    const playerO = player("O","sugoma", false, false);
+
+    function gaming(){
+        gameBoard.playRound(playerX,playerO,0);
+    }
+
+    return{gaming}
+})();
+
+game.gaming();
