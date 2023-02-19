@@ -40,36 +40,30 @@ const gameBoard = (() => {
          return null;
     }
     
-    function playRound(playerX, playerO){
+    function playRound(playerActive, playerWaiting){
         for (let i = 0; i < boardDOM.length; i++) {
-            boardDOM[i].addEventListener("click", (event) => {
-                    if (board[i] === " ") { 
-                       if(playerX.turn){
-                         board[i] = playerX.sign;
-                         let swap = playerX.turn
-                         if(playerO.bot != 0) board[playerO.botMove()] = playerO.sign;
-                         else{
-                          playerX.turn = playerO.turn;
-                          playerO.turn = swap;
-                         }
-                        }
-                        else {
-                          if(playerX.bot != 0) {
-                          board[playerX.botMove()] = playerX.sign;
-                          board[i] = playerO.sign;
-                          }
-                          else {
-                            board[i] = playerO.sign;
-                            let swap = playerX.turn
-                            playerX.turn = playerO.turn;
-                            playerO.turn = swap;
-                          }
-                        }
+          boardDOM[i].addEventListener("click", (event) => {
+                  if (board[i] === " ") { 
+                    if (playerActive.bot != 0) {
+                      board[playerActive.botMove()] = playerActive.sign;
+                      switchPlayers();
                     }
-                display();
-                console.log(getWinner());
-            });
+                    else{
+                      board[i] = playerActive.sign;
+                      if(playerWaiting.bot === 0) switchPlayers();
+                      else board[playerWaiting.botMove()] = playerWaiting.sign;
+                    }
+                  }
+              display();
+              console.log(getWinner());
+          });
         }
+
+      function switchPlayers() {
+        let swapBuffer = playerActive
+        playerActive = playerWaiting;
+        playerWaiting = swapBuffer;
+      }
     }
 
     return{playRound, board}
@@ -89,10 +83,10 @@ const player = (sign, name, bot, turn) => {
       randomMove = available[[Math.floor(Math.random()*available.length)]];
       return randomMove;
     }
-    // else if(bot === 2){
-
-    // }
-    // else return null;
+    else if(bot === 2){
+      let available = [];
+    }
+    else return null;
   } 
   return{sign, name, bot, turn, botMove}
 }
@@ -101,11 +95,11 @@ const player = (sign, name, bot, turn) => {
 
 const game = (() => {
 
-    const playerX = player("X","amongus", 0, true);
-    const playerO = player("O","sugoma", 1, false);
+    const playerX = player("X","amongus", 1, true);
+    const playerO = player("O","sugoma", 0, false);
 
     function gaming(){
-        gameBoard.playRound(playerX,playerO,0);
+        gameBoard.playRound(playerX,playerO);
     }
 
     return{gaming}
