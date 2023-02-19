@@ -41,24 +41,24 @@ const gameBoard = (() => {
     }
     
     function playRound(playerActive, playerWaiting){
+      if (playerActive.bot != 0) {
+        board[playerActive.botMove(board)] = playerActive.sign;
+        switchPlayers();
+        display();
+      }
+      else{
         for (let i = 0; i < boardDOM.length; i++) {
           boardDOM[i].addEventListener("click", (event) => {
                   if (board[i] === " ") { 
-                    if (playerActive.bot != 0) {
-                      board[playerActive.botMove()] = playerActive.sign;
-                      switchPlayers();
-                    }
-                    else{
-                      board[i] = playerActive.sign;
-                      if(playerWaiting.bot === 0) switchPlayers();
-                      else board[playerWaiting.botMove()] = playerWaiting.sign;
-                    }
+                    board[i] = playerActive.sign;
+                    if(playerWaiting.bot === 0) switchPlayers();
+                    else board[playerWaiting.botMove(board)] = playerWaiting.sign;
                   }
               display();
               console.log(getWinner());
           });
         }
-
+      }
       function switchPlayers() {
         let swapBuffer = playerActive
         playerActive = playerWaiting;
@@ -66,7 +66,7 @@ const gameBoard = (() => {
       }
     }
 
-    return{playRound, board}
+    return{playRound}
     
 })();
 
@@ -74,11 +74,11 @@ const player = (sign, name, bot, turn) => {
   // bot = 0 --> not a bot
   // bot = 1 --> random input bot
   // but = 2 --> minimax bot
-  function botMove(){
+  function botMove(board){
    if(bot === 1){
       let available = [];
       for (let i = 0; i < 9; i++) {
-        if(gameBoard.board[i] == " ") available.push(i);
+        if(board[i] == " ") available.push(i);
       }
       randomMove = available[[Math.floor(Math.random()*available.length)]];
       return randomMove;
