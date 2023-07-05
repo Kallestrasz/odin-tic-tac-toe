@@ -81,12 +81,6 @@ const gameBoard = (() => {
 
 const minimaxBotLogic = (() => {
 
-  const scores = {
-    X: 1,
-    O: -1,
-    tie: 0
-  };
-
   function bestMove(board,ai,human) {
     let bestScore = -Infinity;
     let move = null;
@@ -106,15 +100,23 @@ const minimaxBotLogic = (() => {
   
   function minimax(board, depth, isMaximizing, ai, human) {
     let result = gameBoard.getWinner();
+
+    // Check if the game has ended or depth limit reached
     if (result !== null) {
-      return scores[result];
+      if (result === ai) {
+        return 10 - depth; // AI wins, so return a high score
+      } else if (result === human) {
+        return depth - 10; // Human wins, so return a low score
+      }
+      return 0; // It's a tie
     }
+    
     if (isMaximizing) {
       let bestScore = -Infinity;
       for (let i = 0; i < 9; i++) {
         if (board[i] === " ") {
-          board[i] = "O";
-          let score = minimax(board, depth + 1, false);
+          board[i] = ai;
+          let score = minimax(board, depth + 1, false, ai, human);
           board[i] = " ";
           bestScore = Math.max(score, bestScore);
         }
@@ -124,8 +126,8 @@ const minimaxBotLogic = (() => {
       let bestScore = Infinity;
       for (let i = 0; i < 9; i++) {
         if (board[i] === ' ') {
-          board[i] = "X";
-          let score = minimax(board, depth + 1, true);
+          board[i] = human;
+          let score = minimax(board, depth + 1, true, ai, human);
           board[i] = " ";
           bestScore = Math.min(score, bestScore);
         }
