@@ -142,18 +142,19 @@ const gameBoard = (() => {
 				}
 			}
 		}
+		rematchButton.addEventListener("click", () => {
+			// Reset the game board while keeping player settings
+			board = [" ", " ", " ", " ", " ", " ", " ", " ", " "];
+			resultPopup.style.display = "none";
+			if (playerActive.sign === "O") switchPlayers();
+			display();
+		});
+
+		quitButton.addEventListener("click", () => {
+			// Close the result popup and go back to player settings
+			location.reload();
+		});
 	}
-
-	rematchButton.addEventListener("click", () => {
-		// Reload the page to start a new game
-		location.reload();
-	});
-
-	quitButton.addEventListener("click", () => {
-		// Close the result popup and go back to player settings
-		resultPopup.style.display = "none";
-		document.getElementById("player-popup").style.display = "block";
-	});
 
 	return { playRound, getWinner };
 })();
@@ -294,11 +295,18 @@ const game = (() => {
 			document.getElementById("playerOBot").value
 		);
 
-		// Check if both players are selected as bots
+		// Prevent both players from being bots
 		if (playerXBot !== 0 && playerOBot !== 0) {
-			// Display an error message or handle it as per your requirements
 			alert(
 				"Cannot select both players as bots. Please choose at least one human player."
+			);
+			return;
+		}
+
+		// Prevents players from having the same name
+		if (playerXName === playerOName) {
+			alert(
+				"Players cannot have the same name. Please choose different names."
 			);
 			return;
 		}
