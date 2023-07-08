@@ -294,6 +294,15 @@ const game = (() => {
 			document.getElementById("playerOBot").value
 		);
 
+		// Check if both players are selected as bots
+		if (playerXBot !== 0 && playerOBot !== 0) {
+			// Display an error message or handle it as per your requirements
+			alert(
+				"Cannot select both players as bots. Please choose at least one human player."
+			);
+			return;
+		}
+
 		document.getElementById("player-popup").style.display = "none";
 
 		playerX = player("X", playerXName, playerXBot, "X", "O");
