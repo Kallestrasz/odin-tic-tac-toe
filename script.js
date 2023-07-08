@@ -151,7 +151,7 @@ const gameBoard = (() => {
 		});
 
 		quitButton.addEventListener("click", () => {
-			// Close the result popup and go back to player settings
+			// Reset the game by reloading the page
 			location.reload();
 		});
 	}
@@ -197,15 +197,11 @@ const minimaxBotLogic = (() => {
 		// Check if there is a winner or the depth limit has been reached.
 		let result = gameBoard.getWinner();
 		if (result !== null) {
-			// If AI wins, return a high score (10 - depth).
 			if (result === ai) {
 				return 10 - depth;
-			}
-			// If human wins, return a low score (depth - 10).
-			else if (result === human) {
+			} else if (result === human) {
 				return depth - 10;
 			}
-			// If it's a tie, return 0.
 			return 0;
 		}
 
@@ -223,7 +219,7 @@ const minimaxBotLogic = (() => {
 					// Reset the cell back to empty after calculating the score.
 					board[i] = " ";
 
-					// Update the bestScore with the maximum of the current score and the bestScore.
+					// Update the bestScore
 					bestScore = Math.max(score, bestScore);
 				}
 			}
@@ -243,7 +239,7 @@ const minimaxBotLogic = (() => {
 					// Reset the cell back to empty after calculating the score.
 					board[i] = " ";
 
-					// Update the bestScore with the minimum of the current score and the bestScore.
+					// Update the bestScore
 					bestScore = Math.min(score, bestScore);
 				}
 			}
@@ -318,7 +314,7 @@ const game = (() => {
 	}
 
 	function gaming() {
-		// Starts the game and initiates the playRound function
+		// Starts the game
 		getPlayerSettings();
 		gameBoard.playRound(playerX, playerO);
 	}
