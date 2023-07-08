@@ -1,55 +1,173 @@
-:root{
-    --accent: #FCA311;
-    --background: #14213D;
-    --light-collor: #E5E5E5;
+:root {
+	--accent: #fca311;
+	--background: #14213d;
+	--light-collor: #e5e5e5;
 }
-
 
 body {
-    display: grid;
-    grid-template-rows: 16rem 1fr;
-    font-family: Roboto, sans-serif;
-    overflow: hidden;
-    margin: 0;
-    min-height: 100vmin;
-    max-height: 100vmin;
-    overflow-x: hidden;
-    overflow-y: auto;
-    background-color: var(--background);
-    color: var(--accent);
+	display: grid;
+	grid-template-rows: 16rem 1fr;
+	font-family: Roboto, sans-serif;
+	overflow: hidden;
+	margin: 0;
+	min-height: 100vmin;
+	max-height: 100vmin;
+	overflow-x: hidden;
+	overflow-y: auto;
+	background-color: var(--background);
+	color: var(--accent);
 }
 
-header{
-    display:flex;
-    font-size: 4rem;
-    align-items: center;
-    justify-content: center;
+header {
+	display: flex;
+	font-size: 4rem;
+	align-items: center;
+	justify-content: center;
 }
 
-container{
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-bottom: 8rem;
+container {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	margin-bottom: 8rem;
 }
 
-.board{
-    display: grid;
-    grid-template: repeat(3,8rem) / repeat(3,8rem);
-    border: solid 1px var(--accent);    
+.board {
+	display: grid;
+	grid-template: repeat(3, 8rem) / repeat(3, 8rem);
+	border: solid 1px var(--accent);
 }
 
-button{
-    background-color: var(--background);
-    border: solid var(--accent) 1px;
-    font-size: 6rem;
-    color: var(--accent);
+button {
+	background-color: var(--background);
+	border: solid var(--accent) 1px;
+	font-size: 6rem;
+	color: var(--accent);
+	cursor: pointer;
 }
 
-button:hover{
-    background-color: #1f2a42;
+button:hover {
+	background-color: #1f2a42;
 }
 
-h1{
-    text-align: center;
+h1 {
+	text-align: center;
+}
+
+.popup {
+	position: fixed;
+	align-self: center;
+	justify-self: center;
+	background-color: var(--background);
+	padding: 2rem;
+	border: 2px solid var(--accent);
+	width: 25rem;
+	height: 25rem;
+}
+
+.popup h2 {
+	text-align: center;
+	margin-bottom: 1.5rem;
+}
+
+.input-group {
+	display: flex;
+	align-items: center;
+	margin-bottom: 1.5rem;
+}
+
+.input-group label {
+	margin-right: 1rem;
+}
+
+.input-group select,
+.input-group input[type="text"] {
+	padding: 0.5rem;
+	border: 1px solid var(--accent);
+}
+
+.input-group select {
+	min-width: 10rem;
+}
+
+#start-game-btn {
+	display: block;
+	margin: 0 auto;
+	padding: 0.5rem 1rem;
+	font-size: 1rem;
+	background-color: var(--accent);
+	color: var(--background);
+	cursor: pointer;
+}
+
+#result-popup {
+	display: none;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+}
+
+#result-popup .button-container {
+	flex-direction: column;
+	justify-content: center;
+	margin-top: 2rem;
+}
+
+#result-popup button {
+	margin: 0 0.5rem;
+	padding: 0.5rem 1rem;
+	font-size: 1rem;
+	background-color: var(--accent);
+	color: var(--background);
+	cursor: pointer;
+}
+
+@media (max-width: 600px) {
+	body {
+		grid-template-rows: 12rem 1fr;
+	}
+
+	container {
+		margin-bottom: 4rem;
+	}
+
+	.board {
+		grid-template: repeat(3, 6rem) / repeat(3, 6rem);
+	}
+
+	button {
+		font-size: 4rem;
+	}
+
+	.popup {
+		padding: 1rem;
+		margin-top: 4rem;
+		width: 20rem;
+		height: 20rem;
+	}
+
+	.popup h2 {
+		font-size: 1.5rem;
+		margin-bottom: 1rem;
+	}
+
+	.input-group select,
+	.input-group input[type="text"] {
+		padding: 0.3rem;
+		font-size: 0.8rem;
+	}
+
+	#start-game-btn {
+		padding: 0.3rem 0.6rem;
+		font-size: 0.8rem;
+	}
+
+	#result-popup .button-container {
+		margin-top: 1rem;
+	}
+
+	#result-popup button {
+		padding: 0.3rem 0.6rem;
+		font-size: 0.8rem;
+	}
 }
