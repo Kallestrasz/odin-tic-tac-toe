@@ -1,7 +1,7 @@
 :root {
 	--accent: #fca311;
 	--background: #14213d;
-	--light-collor: #e5e5e5;
+	--light-color: #e5e5e5;
 }
 
 body {
@@ -10,8 +10,8 @@ body {
 	font-family: Roboto, sans-serif;
 	overflow: hidden;
 	margin: 0;
-	min-height: 100vmin;
-	max-height: 100vmin;
+	min-height: 100vh;
+	max-height: 100vh;
 	overflow-x: hidden;
 	overflow-y: auto;
 	background-color: var(--background);
@@ -25,7 +25,7 @@ header {
 	justify-content: center;
 }
 
-container {
+.container {
 	display: flex;
 	align-items: center;
 	justify-content: center;
@@ -40,7 +40,7 @@ container {
 
 button {
 	background-color: var(--background);
-	border: solid var(--accent) 1px;
+	border: solid 1px var(--accent);
 	font-size: 6rem;
 	color: var(--accent);
 	cursor: pointer;
@@ -127,7 +127,7 @@ h1 {
 		grid-template-rows: 12rem 1fr;
 	}
 
-	container {
+	.container {
 		margin-bottom: 4rem;
 	}
 
